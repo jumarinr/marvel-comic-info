@@ -23,13 +23,7 @@ const ComicCard = ({ comic }) => {
 
   const onErrorPhoto = () => setImgUrl(`${IMG_NOT_FOUND}${IMGE_TYPE}`);
 
-  const onClick = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-    setSelected(comic);
-  };
+  const onClick = () => setSelected(comic);
 
   return (
     <ButtonBase

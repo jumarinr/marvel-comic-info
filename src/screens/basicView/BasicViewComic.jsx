@@ -26,7 +26,7 @@ import {
 import FilterContext from '../../contexts/FilterContext';
 import LoadingResult from '../loading/LoadingResult';
 
-const BasicView = () => {
+const BasicViewComic = () => {
   const { selected } = useContext(FilterContext);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -90,7 +90,7 @@ const BasicView = () => {
                 </Typography>
               </Grid>
 
-              <Grid item xs={6} className="container-flex-left">
+              <Grid item xs={12} lg={6} className="container-flex-left">
                 <Typography variant="h6">
                   Páginas:
                 </Typography>
@@ -99,7 +99,7 @@ const BasicView = () => {
                 </Typography>
               </Grid>
 
-              <Grid item xs={6} className="container-flex-left">
+              <Grid item xs={12} lg={6} className="container-flex-left">
                 <Typography variant="h6">
                   Formato:
                 </Typography>
@@ -108,7 +108,24 @@ const BasicView = () => {
                 </Typography>
               </Grid>
 
-              <Grid item xs={6}>
+              <Grid item xs={12} lg={6}>
+                <div className="container-flex-left">
+                  <Typography variant="h6" gutterBottom>
+                    Precios:
+                    <Badge badgeContent={_.size(prices)} color="primary" showZero>
+                      <AttachMoneyIcon />
+                    </Badge>
+                  </Typography>
+                </div>
+
+                {prices.map((price) => (
+                  <Typography variant="subtitle1" key={price}>
+                    {`$${price} USD`}
+                  </Typography>
+                ))}
+              </Grid>
+
+              <Grid item xs={12} lg={6}>
                 <Typography variant="h6" className="container-flex-left">
                   Personajes:
                   <Badge ml={2} badgeContent={_.size(characters)} color="primary" showZero>
@@ -129,23 +146,6 @@ const BasicView = () => {
                   )) }
                 </List>
               </Grid>
-
-              <Grid item xs={6}>
-                <div className="container-flex-left">
-                  <Typography variant="h6" gutterBottom>
-                    Precios:
-                    <Badge badgeContent={_.size(prices)} color="primary" showZero>
-                      <AttachMoneyIcon />
-                    </Badge>
-                  </Typography>
-                </div>
-
-                {prices.map((price) => (
-                  <Typography variant="subtitle1" key={price}>
-                    {`$${price} USD`}
-                  </Typography>
-                ))}
-              </Grid>
             </Grid>
           </Grid>
         )
@@ -158,7 +158,7 @@ const BasicView = () => {
   );
 };
 
-BasicView.propTypes = {
+BasicViewComic.propTypes = {
 };
 
-export default BasicView;
+export default BasicViewComic;

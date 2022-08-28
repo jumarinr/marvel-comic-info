@@ -121,7 +121,7 @@ const Comics = () => {
             showLastButton
             page={currentPage}
             onChange={handleChange}
-            size="large"
+            sx={{ size: { xs: 'small', lg: 'large' } }}
           />
         </Stack>
       </Grid>

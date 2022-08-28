@@ -7,6 +7,8 @@ import Grid from '@mui/material/Grid';
 
 import { IMG_SIZE_DIMENSIONS } from '../utils/constants';
 
+const HALF_HEIGHT = 0.5 * IMG_SIZE_DIMENSIONS.height;
+
 const LoadingResult = ({ height, width }) => (
   <Grid container spacing={3}>
     <Grid item xs={12}>
@@ -15,8 +17,8 @@ const LoadingResult = ({ height, width }) => (
     <Grid item xs>
       <Skeleton variant="rectangular" sx={{ height, width }} />
     </Grid>
-    <Grid item xs>
-      <Skeleton variant="rectangular" sx={{ height, width }} />
+    <Grid item xs={12}>
+      <Skeleton variant="rectangular" sx={{ height: HALF_HEIGHT }} />
     </Grid>
 
     <Grid item xs={6}>

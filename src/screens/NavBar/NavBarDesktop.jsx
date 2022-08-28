@@ -25,7 +25,11 @@ const NavBarDesktop = () => {
     <>
       <AppBar component="nav" color="inherit">
         <Toolbar>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{
+            flexGrow: 1,
+            // display: { xs: 'none', md: 'flex' }
+          }}
+          >
             <Grid container alignItems="center" justifyContent="center">
               <Grid item xs={12} md={11}>
                 <Grid container spacing={1}>

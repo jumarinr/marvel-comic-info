@@ -1,4 +1,4 @@
-import { useMediaQuery } from 'react-responsive';
+import { useTheme, useMediaQuery } from '@mui/material';
 
 import React from 'react';
 
@@ -9,13 +9,10 @@ import Skeleton from '@mui/material/Skeleton';
 import { IMG_SIZE_DIMENSIONS } from '../utils/constants';
 
 const LoadingPage = () => {
-  const isDesktopOrLaptop = useMediaQuery({
-    query: '(min-device-width: 1224px)',
-  });
+  const theme = useTheme();
+  const isXS = useMediaQuery(theme.breakpoints.up('xs'));
 
-  const isBigScreen = useMediaQuery({ query: '(min-device-width: 1824px)' });
-  const isComputer = isDesktopOrLaptop || isBigScreen;
-  const skeletonPage = isComputer ? [...Array(3).keys()] : [0];
+  const skeletonPage = isXS ? [...Array(2).keys()] : [0];
 
   return (
     <Grid container spacing={3}>
@@ -26,8 +23,16 @@ const LoadingPage = () => {
       <Grid item xs={12} md={9}>
         <Grid container spacing={3}>
           {skeletonPage.map((skeletonConsecutive) => (
-            <Grid item xs={12} sm={12} md={12} lg={4} key={skeletonConsecutive}>
-              <Skeleton variant="rectangular" height={IMG_SIZE_DIMENSIONS.height} />
+            <Grid item xs={12} sm={12} md={12} lg={6} key={skeletonConsecutive}>
+              <Skeleton
+                variant="rectangular"
+                height={IMG_SIZE_DIMENSIONS.height}
+                sx={{
+                  width: {
+                    xs: '85vw', sm: '85vw', md: '60vw', lg: '30vw',
+                  },
+                }}
+              />
             </Grid>
           ))}
         </Grid>

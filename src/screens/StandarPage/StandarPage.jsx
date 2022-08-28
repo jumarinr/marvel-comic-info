@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
-import { useMediaQuery } from 'react-responsive';
+import { useTheme, useMediaQuery } from '@mui/material';
 
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
@@ -12,29 +12,44 @@ import Typography from '@mui/material/Typography';
 
 import Filters from '../Filters/Filters';
 import FilterContext from '../../contexts/FilterContext';
-import BasicView from '../comics/BasicView';
+import BasicView from '../basicView/BasicView';
+import ModalView from '../basicView/ModalView';
 
 const StandarPage = ({ component: Component, ...restOfProps }) => {
   const [params, setParams] = useState({});
   const [selected, setSelected] = useState(null);
+  const [openModalInfo, setOpenModalInfo] = useState(false);
 
-  const isDesktopOrLaptop = useMediaQuery({
-    query: '(min-device-width: 1224px)',
-  });
+  const handleModalInfo = () => setOpenModalInfo((prev) => !prev);
 
-  const isBigScreen = useMediaQuery({ query: '(min-device-width: 1824px)' });
-  const isComputer = isDesktopOrLaptop || isBigScreen;
+  const theme = useTheme();
+  const isXS = useMediaQuery(theme.breakpoints.between('xs', 'md'));
 
   const searchItems = (searchSon) => searchSon();
 
-  const value = useMemo(() => ({
-    params,
-    setParams,
-    searchItems,
-    selected,
-    setSelected,
-    isComputer,
-  }), [params, selected, isComputer]);
+  const value = useMemo(() => {
+    const handleSelect = (valueSelected) => {
+      if (isXS) {
+        handleModalInfo();
+      } else {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      }
+
+      setSelected(valueSelected);
+    };
+
+    return {
+      params,
+      setParams,
+      searchItems,
+      selected,
+      setSelected: handleSelect,
+      isComputer: isXS,
+    };
+  }, [params, selected, isXS]);
 
   const basicView = useMemo(
     () => (selected
@@ -58,28 +73,31 @@ const StandarPage = ({ component: Component, ...restOfProps }) => {
             </Grid>
           </Grid>
         </Grid>
-        {isComputer
-          ? (
-            <Grid item xs={12} md={3}>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <Typography variant="subtitle2">
-                    Selecciona los filtros de búsqueda que
-                    necesites para poder obtener la información requerida
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <Filters />
-                </Grid>
-                <Grid item xs={12}>
-                  <Divider variant="fullWidth" />
-                </Grid>
-                {basicView}
-              </Grid>
+        <Grid item xs={12} md={3} sx={{ display: { xs: 'none', md: 'block' } }}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Typography variant="subtitle2">
+                Selecciona los filtros de búsqueda que
+                necesites para poder obtener la información requerida
+              </Typography>
             </Grid>
-          )
-          : null}
+            <Grid item xs={12}>
+              <Filters />
+            </Grid>
+            <Grid item xs={12}>
+              <Divider variant="fullWidth" />
+            </Grid>
+            {basicView}
+          </Grid>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Typography variant="caption" display="block" gutterBottom>
+            Data provided by Marvel. © 2022 MARVEL
+          </Typography>
+        </Grid>
       </Grid>
+      <ModalView handleModal={handleModalInfo} openModal={openModalInfo} />
     </FilterContext.Provider>
   );
 };
