@@ -67,7 +67,7 @@ const BasicView = () => {
             </Typography>
 
             <Grid container spacing={1}>
-              <Grid item>
+              <Grid item xs>
                 <Typography variant="h6" gutterBottom>
                   Portada:
                 </Typography>
@@ -81,7 +81,7 @@ const BasicView = () => {
                 />
               </Grid>
 
-              <Grid item xs>
+              <Grid item xs={12}>
                 <Typography variant="h6" gutterBottom>
                   Descripción:
                 </Typography>

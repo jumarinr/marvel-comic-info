@@ -79,7 +79,7 @@ const Comics = () => {
   const renderOfLoadingPage = useMemo(() => (isLoading ? <LoadingResults /> : null), [isLoading]);
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} justifyContent="center" alignItems="center">
       <Grid item xs={12}>
         <Stack alignItems="center">
           <Pagination
@@ -101,7 +101,7 @@ const Comics = () => {
           ? (
             <Grid container spacing={3}>
               {results.map((comic) => (
-                <Grid item xs={12} sm={12} md={12} lg={4} key={comic.id}>
+                <Grid item xs={12} sm={12} md={12} lg={6} key={comic.id}>
                   <ComicCard comic={comic} />
                 </Grid>
               ))}

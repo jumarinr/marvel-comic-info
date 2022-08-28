@@ -40,9 +40,11 @@ const ComicCard = ({ comic }) => {
     >
       <Card sx={{
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-start',
         height: IMG_SIZE_DIMENSIONS.height,
-        width: '100%',
+        width: {
+          xs: '85vw', sm: '85vw', md: '60vw', lg: '30vw',
+        },
       }}
       >
         <CardMedia
@@ -56,10 +58,10 @@ const ComicCard = ({ comic }) => {
           <CardContent>
             <Grid container>
               <Grid item xs={12}>
-                <Typography gutterBottom variant="h5">
+                <Typography gutterBottom variant="h5" align="left">
                   {comic.title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ maxHeight: CONTAINER_SIZE, overflow: 'auto' }}>
+                <Typography variant="body2" color="text.secondary" sx={{ maxHeight: CONTAINER_SIZE, overflow: 'auto' }} align="left">
                   {comic.description || 'Comic sin descripción :('}
                 </Typography>
               </Grid>

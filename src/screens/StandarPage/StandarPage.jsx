@@ -51,8 +51,12 @@ const StandarPage = ({ component: Component, ...restOfProps }) => {
   return (
     <FilterContext.Provider value={value}>
       <Grid container spacing={3}>
-        <Grid item xs={9}>
-          <Component {...restOfProps} />
+        <Grid item xs={12} md={9}>
+          <Grid container alignItems="center" justifyContent="center">
+            <Grid item xs={11}>
+              <Component {...restOfProps} />
+            </Grid>
+          </Grid>
         </Grid>
         {isComputer
           ? (
