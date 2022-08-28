@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 
 // material ui core
 import Grid from '@mui/material/Grid';
@@ -19,25 +19,49 @@ const Comics = React.lazy(() => import('./screens/comics/Comics'));
 const Home = React.lazy(() => import('./screens/home/Home'));
 const StandarPage = React.lazy(() => import('./screens/StandarPage/StandarPage'));
 
-const App = () => (
-  <ThemeProvider theme={themeLight}>
-    <BrowserRouter>
-      <NavBarDesktop />
-      <Grid container alignItems="center" justifyContent="center">
-        <Grid item xs={12} md={11}>
-          <Suspense fallback={<LoadingPage />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path={PAGE_CHARACTERS} element={<StandarPage component={Characters} />} />
-              <Route path={PAGE_COMICS} element={<StandarPage component={Comics} />} />
-              <Route path="*" element={<Home />} replace />
-            </Routes>
-          </Suspense>
-        </Grid>
-      </Grid>
+const App = () => {
+  const [openFilters, setopenFilters] = useState(false);
 
-    </BrowserRouter>
-  </ThemeProvider>
-);
+  const handleFilters = () => setopenFilters((prev) => !prev);
+
+  return (
+    <ThemeProvider theme={themeLight}>
+      <BrowserRouter>
+        <NavBarDesktop handleFilters={handleFilters} />
+        <Grid container alignItems="center" justifyContent="center">
+          <Grid item xs={12} md={11}>
+            <Suspense fallback={<LoadingPage />}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route
+                  path={PAGE_CHARACTERS}
+                  element={(
+                    <StandarPage
+                      component={Characters}
+                      openFilters={openFilters}
+                      handleFilters={handleFilters}
+                    />
+                  )}
+                />
+                <Route
+                  path={PAGE_COMICS}
+                  element={(
+                    <StandarPage
+                      component={Comics}
+                      openFilters={openFilters}
+                      handleFilters={handleFilters}
+                    />
+                  )}
+                />
+                <Route path="*" element={<Home />} replace />
+              </Routes>
+            </Suspense>
+          </Grid>
+        </Grid>
+
+      </BrowserRouter>
+    </ThemeProvider>
+  );
+};
 
 export default App;

@@ -2,6 +2,7 @@ import { styled } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // material ui core
 import AppBar from '@mui/material/AppBar';
@@ -9,14 +10,16 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
 import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
 
 // material ui icons
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 import { PAGES } from '../utils/constants';
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
-const NavBarDesktop = () => {
+const NavBarDesktop = ({ handleFilters }) => {
   const navigate = useNavigate();
   const redirect = (path) => () => navigate(path);
   const location = useLocation();
@@ -25,11 +28,7 @@ const NavBarDesktop = () => {
     <>
       <AppBar component="nav" color="inherit">
         <Toolbar>
-          <Box sx={{
-            flexGrow: 1,
-            // display: { xs: 'none', md: 'flex' }
-          }}
-          >
+          <Box sx={{ flexGrow: 1 }}>
             <Grid container alignItems="center" justifyContent="center">
               <Grid item xs={12} md={11}>
                 <Grid container spacing={1}>
@@ -49,6 +48,11 @@ const NavBarDesktop = () => {
               </Grid>
             </Grid>
           </Box>
+          <Box sx={{ display: { xs: 'block', md: 'none' }, float: 'right' }}>
+            <IconButton onClick={handleFilters} color="primary">
+              <FilterAltIcon />
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
       <Offset />
@@ -56,6 +60,8 @@ const NavBarDesktop = () => {
   );
 };
 
-NavBarDesktop.propTypes = {};
+NavBarDesktop.propTypes = {
+  handleFilters: PropTypes.func.isRequired,
+};
 
 export default NavBarDesktop;

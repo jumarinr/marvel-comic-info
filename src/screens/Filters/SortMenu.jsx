@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 // material ui core
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
@@ -12,6 +11,9 @@ import MenuList from '@mui/material/MenuList';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import InputLabel from '@mui/material/InputLabel';
+
+// material icons
+import SortIcon from '@mui/icons-material/Sort';
 
 const SortMenu = ({ options, name, handleChangeParams }) => {
   const [open, setOpen] = useState(false);
@@ -46,7 +48,7 @@ const SortMenu = ({ options, name, handleChangeParams }) => {
       <ButtonGroup variant="outlined" ref={anchorRef} id="order-menu">
         <Button size="medium">{options[selectedIndex].label}</Button>
         <Button size="medium" onClick={handleToggle}>
-          <ArrowDropDownIcon />
+          <SortIcon />
         </Button>
       </ButtonGroup>
       <Popper

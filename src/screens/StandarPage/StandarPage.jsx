@@ -14,8 +14,11 @@ import Filters from '../Filters/Filters';
 import FilterContext from '../../contexts/FilterContext';
 import BasicView from '../basicView/BasicView';
 import ModalView from '../basicView/ModalView';
+import FilterModal from '../Filters/FilterModal';
 
-const StandarPage = ({ component: Component, ...restOfProps }) => {
+const StandarPage = ({
+  component: Component, handleFilters, openFilters, ...restOfProps
+}) => {
   const [params, setParams] = useState({});
   const [selected, setSelected] = useState(null);
   const [openModalInfo, setOpenModalInfo] = useState(false);
@@ -98,6 +101,7 @@ const StandarPage = ({ component: Component, ...restOfProps }) => {
         </Grid>
       </Grid>
       <ModalView handleModal={handleModalInfo} openModal={openModalInfo} />
+      <FilterModal openModal={openFilters} handleModal={handleFilters} />
     </FilterContext.Provider>
   );
 };
@@ -105,6 +109,8 @@ const StandarPage = ({ component: Component, ...restOfProps }) => {
 StandarPage.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   component: PropTypes.object.isRequired,
+  handleFilters: PropTypes.func.isRequired,
+  openFilters: PropTypes.bool.isRequired,
 };
 
 export default StandarPage;

@@ -46,7 +46,7 @@ const Characters = () => {
       setTotal(result.total);
       setResults(result.characters);
     } catch (error) {
-      error(error);
+      console.error(error);
       if (currentPage !== 1) {
         setCurrentPage((lastPage) => lastPage - 1);
       }

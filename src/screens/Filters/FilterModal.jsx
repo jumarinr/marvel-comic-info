@@ -7,31 +7,32 @@ import DialogContent from '@mui/material/DialogContent';
 import Grid from '@mui/material/Grid';
 import Slide from '@mui/material/Slide';
 
-import BasicView from './BasicView';
+import Filters from './Filters';
 
 // eslint-disable-next-line react/jsx-props-no-spreading
 const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
-const ModalView = ({ openModal: open, handleModal }) => (
+const FilterModal = ({ openModal: open, handleModal }) => (
   <Dialog
     open={open}
     TransitionComponent={Transition}
     onClose={handleModal}
-    aria-describedby="modal-info-comic"
+    aria-describedby="modal-filter-comic"
+    keepMounted
   >
     <DialogContent>
       <Grid container spacing={4}>
         <Grid item xs={12}>
-          <BasicView />
+          <Filters />
         </Grid>
       </Grid>
     </DialogContent>
   </Dialog>
 );
 
-ModalView.propTypes = {
+FilterModal.propTypes = {
   openModal: PropTypes.bool.isRequired,
   handleModal: PropTypes.func.isRequired,
 };
 
-export default ModalView;
+export default FilterModal;
