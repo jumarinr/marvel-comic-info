@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+# Proyecto para consumir el API expuesta por Marvel
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Documentación del API usada
+[https://developer.marvel.com/docs](https://developer.marvel.com/docs)
 
-## Available Scripts
+## Pagina en producción
+[https://marvel-comic-info.netlify.app/](https://marvel-comic-info.netlify.app/)
 
-In the project directory, you can run:
+## Guía para ejecución local
+1. Obtener una key de marvel. Esta la puedes obtener en el siguiente enlace: [https://developer.marvel.com/account]()
+2. Inicializar la variable de entorno `REACT_APP_URL_API` con el valor de `https://gateway.marvel.com:443/v1/public`
+3. Inicializar la variable de entorno `REACT_APP_API_KEY` con la public key de marvel
+4. Ejecutar `npm start`
 
-### `npm start`
+## Funcionalidades de la aplicación
+- Permitir mostrar los comics de marvel en forma paginada y filtrarlos por personajes, formato, tipo de formato. Adicionalmente posee la opción de ordenar por nombre y fecha de venta
+- Permitir mostrar los personajes de marvel en forma paginada y filtrarlos por comics en los que aparecen. Adicionalmente posee la opción de ordenar por nombre y modificación de este
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Decisiones técnicas
+- Se utiliza useContext para el manejo de estados entre varios niveles anidados de componentes (nietos llamado funciones del abuelo). Este se ve reflejado al momento de buscar comics o personajes.
+- Se divide la aplicación en componentes, intentando que un componente tenga una funcionalidad especifica para poder reutilizarla después de ser el caso. Esto se ve reflejado en los filtros de búsqueda
+- Se utilizan media queries para desplegar resultados acorde a la resolución del usuario
+- Se utiliza material ui como libreria de desarrollo dada su facilidad de implementación
+- Se utiliza axios para los llamados http dada su facilidad de enviar parametros y buena documentación de uso
+- Se installa e implementa eslint para mantener el código limpio y evitar errores no vistos por el codificador
+- Se instala lodash para acceder a sus funcionalidades sobre arreglos y objetos
+- Se utiliza localstorage para ayudar al usuario a abrir la ayuda por primera vez

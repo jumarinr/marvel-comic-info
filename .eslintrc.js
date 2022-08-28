@@ -11,7 +11,7 @@ module.exports = {
     'airbnb',
     'airbnb/hooks',
   ],
-  root: true, // For configuration cascading.
+  root: true,
   overrides: [
   ],
   parserOptions: {
@@ -20,7 +20,7 @@ module.exports = {
   },
   plugins: [
     'react',
-    'import', // eslint-plugin-import plugin. https://www.npmjs.com/package/eslint-plugin-import
+    'import',
   ],
   rules: {
     indent: [
@@ -33,6 +33,13 @@ module.exports = {
     ],
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'react/function-component-definition': [
+      2,
+      {
+        namedComponents: 'arrow-function',
+        unnamedComponents: 'arrow-function',
+      },
+    ],
   },
   settings: {
     react: {
