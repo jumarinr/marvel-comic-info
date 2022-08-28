@@ -6,7 +6,10 @@ import {
   DEFAULT_PAGE_LIMIT, SERVICE_CHARACTERS, SERVICE_COMICS, IMG_NOT_FOUND,
 } from './constants';
 
-const { API_KEY, URL_API } = process.env;
+const {
+  REACT_APP_URL_API: URL_API,
+  REACT_APP_API_KEY: API_KEY,
+} = process.env;
 
 /**
  * @typedef ReturnCharacters
