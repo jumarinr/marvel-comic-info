@@ -152,7 +152,7 @@ export const getComics = async (params = {}) => {
   try {
     const res = await axios.get(urlComics, {
       params: {
-        ..._.omit(params, 'characters'),
+        ..._.omit(params, 'comics'),
         limit,
         apikey: API_KEY,
         orderBy,
