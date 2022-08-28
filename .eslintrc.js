@@ -32,6 +32,7 @@ module.exports = {
       'single',
     ],
     'react/react-in-jsx-scope': 'off',
+    'linebreak-style': 0,
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/function-component-definition': [
       2,
