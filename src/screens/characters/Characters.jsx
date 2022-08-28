@@ -17,6 +17,7 @@ import LoadingResults from '../loading/LoadingResults';
 import CharacterCard from './CharacterCard';
 import FilterCharacters from './FilterCharacters';
 import FilterContext from '../../contexts/FilterContext';
+import NoData from '../NoData/NoData';
 
 const Characters = () => {
   const { params, searchItems } = useContext(FilterContext);
@@ -118,6 +119,11 @@ const Characters = () => {
             </Grid>
           )
           : renderOfLoadingPage}
+
+        {_.isEmpty(results) && !isLoading
+          ? <NoData />
+          : null}
+
       </Grid>
       <Grid item xs={12}>
         <Stack alignItems="center">

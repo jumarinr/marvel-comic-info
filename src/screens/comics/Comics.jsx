@@ -13,10 +13,11 @@ import { getComics } from '../utils/getMarvel';
 import { DEFAULT_PAGE_LIMIT } from '../utils/constants';
 import { buildLimitAndSkip } from '../utils/helpers';
 
-import LoadingResults from '../loading/LoadingResults';
 import ComicCard from './ComicCard';
-import FilterContext from '../../contexts/FilterContext';
 import FilterComics from './FilterComics';
+import FilterContext from '../../contexts/FilterContext';
+import LoadingResults from '../loading/LoadingResults';
+import NoData from '../NoData/NoData';
 
 const Comics = () => {
   const { params, searchItems } = useContext(FilterContext);
@@ -115,6 +116,9 @@ const Comics = () => {
             </Grid>
           )
           : renderOfLoadingPage}
+        {_.isEmpty(results) && !isLoading
+          ? <NoData />
+          : null}
       </Grid>
       <Grid item xs={12}>
         <Stack alignItems="center">
