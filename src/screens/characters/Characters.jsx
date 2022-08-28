@@ -73,27 +73,45 @@ const Characters = () => {
 
   const setCharacters = (characters) => {
     if (_.isEmpty(characters)) {
-      getListCharacters({ pageSelected: currentPage })();
+      getListCharacters({ ...params, pageSelected: currentPage })();
     } else {
       setResults(characters);
       setTotal(_.size(characters));
     }
   };
 
-  const numberOfPages = Math.ceil(total / DEFAULT_PAGE_LIMIT);
+  const numberOfPages = useMemo(() => Math.ceil(total / DEFAULT_PAGE_LIMIT), [total]);
   const renderOfLoadingPage = useMemo(() => (isLoading ? <LoadingResults /> : null), [isLoading]);
 
   return (
-    <Grid container spacing={3} direction="row">
+    <Grid container spacing={3} justifyContent="center" alignItems="center">
+      <Grid item xs={12}>
+        <Stack alignItems="center">
+          <Pagination
+            count={numberOfPages}
+            shape="rounded"
+            color="primary"
+            showFirstButton
+            siblingCount={0}
+            variant="outlined"
+            showLastButton
+            page={currentPage}
+            onChange={handleChange}
+            size="large"
+          />
+        </Stack>
+      </Grid>
+
       <Grid item xs={12}>
         <FilterCharacters setCharacters={setCharacters} />
       </Grid>
+
       <Grid item xs={12}>
         {!_.isEmpty(results) && !isLoading
           ? (
             <Grid container spacing={3}>
               {results.map((character) => (
-                <Grid item xs={12} md={4} key={character.id}>
+                <Grid item xs={12} sm={12} md={12} lg={6} key={character.id}>
                   <CharacterCard character={character} />
                 </Grid>
               ))}
@@ -113,7 +131,7 @@ const Characters = () => {
             showLastButton
             page={currentPage}
             onChange={handleChange}
-            size="large"
+            sx={{ size: { xs: 'small', lg: 'large' } }}
           />
         </Stack>
       </Grid>

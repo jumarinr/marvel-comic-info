@@ -1,4 +1,6 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter, Routes, Route, Navigate,
+} from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 
 import React, { Suspense, useState } from 'react';
@@ -12,11 +14,10 @@ import { PAGE_CHARACTERS, PAGE_COMICS } from './screens/utils/constants';
 
 import LoadingPage from './screens/loading/LoadingPage';
 import themeLight from './config/themeLight';
-import NavBarDesktop from './screens/NavBar/NavBarDesktop';
+import NavBar from './screens/NavBar/NavBar';
 
 const Characters = React.lazy(() => import('./screens/characters/Characters'));
 const Comics = React.lazy(() => import('./screens/comics/Comics'));
-const Home = React.lazy(() => import('./screens/home/Home'));
 const StandarPage = React.lazy(() => import('./screens/StandarPage/StandarPage'));
 
 const App = () => {
@@ -27,12 +28,11 @@ const App = () => {
   return (
     <ThemeProvider theme={themeLight}>
       <BrowserRouter>
-        <NavBarDesktop handleFilters={handleFilters} />
+        <NavBar handleFilters={handleFilters} />
         <Grid container alignItems="center" justifyContent="center">
           <Grid item xs={12} md={11}>
             <Suspense fallback={<LoadingPage />}>
               <Routes>
-                <Route path="/" element={<Home />} />
                 <Route
                   path={PAGE_CHARACTERS}
                   element={(
@@ -53,7 +53,7 @@ const App = () => {
                     />
                   )}
                 />
-                <Route path="*" element={<Home />} replace />
+                <Route path="*" element={<Navigate to={PAGE_COMICS} replace />} />
               </Routes>
             </Suspense>
           </Grid>

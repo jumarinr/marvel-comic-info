@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
 import { useTheme, useMediaQuery } from '@mui/material';
+import { useLocation } from 'react-router-dom';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 // material ui core
@@ -28,7 +29,15 @@ const StandarPage = ({
   const theme = useTheme();
   const isXS = useMediaQuery(theme.breakpoints.between('xs', 'md'));
 
-  const searchItems = (searchSon) => searchSon();
+  const searchItems = (searchSon) => {
+    searchSon();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  const location = useLocation();
 
   const value = useMemo(() => {
     const handleSelect = (valueSelected) => {
@@ -66,6 +75,11 @@ const StandarPage = ({
     [selected],
   );
 
+  useEffect(() => {
+    setParams({});
+    setSelected(null);
+  }, [location.pathname]);
+
   return (
     <FilterContext.Provider value={value}>
       <Grid container spacing={3}>
@@ -96,7 +110,7 @@ const StandarPage = ({
 
         <Grid item xs={12}>
           <Typography variant="caption" display="block" gutterBottom>
-            Data provided by Marvel. © 2022 MARVEL
+            {`Data provided by Marvel. ©${new Date().getFullYear()} MARVEL`}
           </Typography>
         </Grid>
       </Grid>

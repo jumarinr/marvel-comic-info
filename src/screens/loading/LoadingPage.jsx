@@ -5,6 +5,8 @@ import React from 'react';
 // material ui core
 import Grid from '@mui/material/Grid';
 import Skeleton from '@mui/material/Skeleton';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 import { IMG_SIZE_DIMENSIONS } from '../utils/constants';
 
@@ -16,6 +18,20 @@ const LoadingPage = () => {
 
   return (
     <Grid container spacing={3}>
+      <Grid item xs={12} md={9}>
+        <Stack alignItems="center">
+          <Pagination
+            count={0}
+            shape="rounded"
+            color="primary"
+            showFirstButton
+            siblingCount={0}
+            variant="outlined"
+            showLastButton
+            size="large"
+          />
+        </Stack>
+      </Grid>
       <Grid item xs={12} md={9}>
         <Skeleton variant="text" sx={{ fontSize: '4rem' }} />
       </Grid>

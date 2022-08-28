@@ -16,6 +16,7 @@ import { buildLimitAndSkip } from '../utils/helpers';
 import LoadingResults from '../loading/LoadingResults';
 import ComicCard from './ComicCard';
 import FilterContext from '../../contexts/FilterContext';
+import FilterComics from './FilterComics';
 
 const Comics = () => {
   const { params, searchItems } = useContext(FilterContext);
@@ -67,15 +68,18 @@ const Comics = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params, currentPage]);
 
-  const handleChange = (_event, value) => {
-    setCurrentPage(value);
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+  const handleChange = (_event, value) => setCurrentPage(value);
+
+  const setComics = (characters) => {
+    if (_.isEmpty(characters)) {
+      getListComics({ ...params, pageSelected: currentPage })();
+    } else {
+      setResults(characters);
+      setTotal(_.size(characters));
+    }
   };
 
-  const numberOfPages = Math.ceil(total / DEFAULT_PAGE_LIMIT);
+  const numberOfPages = useMemo(() => Math.ceil(total / DEFAULT_PAGE_LIMIT), [total]);
   const renderOfLoadingPage = useMemo(() => (isLoading ? <LoadingResults /> : null), [isLoading]);
 
   return (
@@ -95,6 +99,9 @@ const Comics = () => {
             size="large"
           />
         </Stack>
+      </Grid>
+      <Grid item xs={12}>
+        <FilterComics setComics={setComics} />
       </Grid>
       <Grid item xs={12}>
         {!_.isEmpty(results) && !isLoading

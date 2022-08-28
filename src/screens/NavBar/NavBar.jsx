@@ -17,9 +17,11 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 import { PAGES } from '../utils/constants';
 
+import Info from '../home/Info';
+
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
-const NavBarDesktop = ({ handleFilters }) => {
+const NavBar = ({ handleFilters }) => {
   const navigate = useNavigate();
   const redirect = (path) => () => navigate(path);
   const location = useLocation();
@@ -48,6 +50,7 @@ const NavBarDesktop = ({ handleFilters }) => {
               </Grid>
             </Grid>
           </Box>
+          <Info />
           <Box sx={{ display: { xs: 'block', md: 'none' }, float: 'right' }}>
             <IconButton onClick={handleFilters} color="primary">
               <FilterAltIcon />
@@ -60,8 +63,8 @@ const NavBarDesktop = ({ handleFilters }) => {
   );
 };
 
-NavBarDesktop.propTypes = {
+NavBar.propTypes = {
   handleFilters: PropTypes.func.isRequired,
 };
 
-export default NavBarDesktop;
+export default NavBar;

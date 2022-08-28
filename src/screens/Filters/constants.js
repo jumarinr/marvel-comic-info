@@ -21,4 +21,23 @@ export const COMIC_ORDER_BY = [
   },
 ];
 
+export const CHARACTER_ORDER_BY = [
+  {
+    label: 'Nombre (ascendente)',
+    value: 'name',
+  },
+  {
+    label: 'Nombre (descendente)',
+    value: '-name',
+  },
+  {
+    label: 'Modifación (ascendente)',
+    value: 'modified',
+  },
+  {
+    label: 'Modifación (descendente)',
+    value: '-modified',
+  },
+];
+
 export const NO_OPTIONS = 'Ninguno';

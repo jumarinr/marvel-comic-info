@@ -5,9 +5,10 @@ import React from 'react';
 import { PAGE_CHARACTERS, PAGE_COMICS } from '../utils/constants';
 
 import BasicViewComic from './BasicViewComic';
+import BasicViewCharacters from './BasicViewCharacters';
 
 const VIEW_BY_PAGE = new Map([
-  [PAGE_CHARACTERS, BasicViewComic],
+  [PAGE_CHARACTERS, BasicViewCharacters],
   [PAGE_COMICS, BasicViewComic],
 ]);
 

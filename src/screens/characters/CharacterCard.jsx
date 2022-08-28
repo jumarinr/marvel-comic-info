@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
+import ButtonBase from '@mui/material/ButtonBase';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -9,45 +10,58 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import { IMGE_TYPE, IMG_SIZE_DIMENSIONS, IMG_NOT_FOUND } from '../utils/constants';
+import FilterContext from '../../contexts/FilterContext';
 
-const CONTAINER_SIZE = 0.7 * IMG_SIZE_DIMENSIONS.height;
+const CONTAINER_SIZE = 0.6 * IMG_SIZE_DIMENSIONS.height;
 
 const CharacterCard = ({ character }) => {
+  const { setSelected } = useContext(FilterContext);
+
   const [imgUrl, setImgUrl] = useState(`${character.thumbnail.path}${IMGE_TYPE}`);
 
   const onErrorPhoto = () => setImgUrl(`${IMG_NOT_FOUND}${IMGE_TYPE}`);
 
-  return (
+  const onClick = () => setSelected(character);
 
-    <Card sx={{
-      display: 'flex',
-      justifyContent: 'space-between',
-      height: IMG_SIZE_DIMENSIONS.height,
-      width: '100%',
-    }}
+  return (
+    <ButtonBase
+      focusRipple
+      key={character.name}
+      sx={{ height: IMG_SIZE_DIMENSIONS.height }}
+      onClick={onClick}
     >
-      <CardMedia
-        component="img"
-        sx={{ ...IMG_SIZE_DIMENSIONS }}
-        image={imgUrl}
-        alt={character.name}
-        onError={onErrorPhoto}
-      />
-      <Box>
-        <CardContent>
-          <Grid container alignContent="flex-start">
-            <Grid item>
-              <Typography gutterBottom variant="h5">
-                {character.name}
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ maxHeight: CONTAINER_SIZE, overflow: 'auto' }}>
-                {character.description || 'Comic sin descripción :('}
-              </Typography>
+      <Card sx={{
+        display: 'flex',
+        justifyContent: 'flex-start',
+        height: IMG_SIZE_DIMENSIONS.height,
+        width: {
+          xs: '85vw', sm: '85vw', md: '60vw', lg: '30vw',
+        },
+      }}
+      >
+        <CardMedia
+          component="img"
+          sx={{ ...IMG_SIZE_DIMENSIONS }}
+          image={imgUrl}
+          alt={character.name}
+          onError={onErrorPhoto}
+        />
+        <Box>
+          <CardContent>
+            <Grid container>
+              <Grid item xs={12}>
+                <Typography gutterBottom variant="h5" align="left">
+                  {character.name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ maxHeight: CONTAINER_SIZE, overflow: 'auto' }} align="left">
+                  {character.description || 'Personaje sin descripción :('}
+                </Typography>
+              </Grid>
             </Grid>
-          </Grid>
-        </CardContent>
-      </Box>
-    </Card>
+          </CardContent>
+        </Box>
+      </Card>
+    </ButtonBase>
   );
 };
 

@@ -66,7 +66,7 @@ export const getCharacters = async (params = {}) => {
   try {
     const res = await axios.get(urlCharacters, {
       params: {
-        ...params,
+        ..._.omit(params, 'characters'),
         limit,
         apikey: API_KEY,
       },
@@ -100,6 +100,7 @@ export const getComicsByCharacter = async (params = {}) => {
   const urlComicsOfCharacters = buildUrlByIds({
     principalService: SERVICE_CHARACTERS,
     id: params.characterId,
+    secondaryService: SERVICE_COMICS,
   });
 
   const { limit = DEFAULT_PAGE_LIMIT } = params;
@@ -107,7 +108,7 @@ export const getComicsByCharacter = async (params = {}) => {
   try {
     const res = await axios.get(urlComicsOfCharacters, {
       params: {
-        ...params,
+        ..._.omit(params, ['comics', 'characters']),
         limit,
         apikey: API_KEY,
       },
@@ -151,16 +152,15 @@ export const getComics = async (params = {}) => {
   try {
     const res = await axios.get(urlComics, {
       params: {
-        ...params,
+        ..._.omit(params, 'characters'),
         limit,
         apikey: API_KEY,
         orderBy,
+        noVariants: true,
       },
     });
 
     const { data } = res.data;
-
-    console.log(res);
 
     return {
       comics: parseItems(data.results),
@@ -196,7 +196,7 @@ export const getCharactersByComic = async (params = {}) => {
   try {
     const res = await axios.get(urlCharactersByComic, {
       params: {
-        ...params,
+        ..._.omit(params, ['comics', 'characters']),
         limit,
         apikey: API_KEY,
       },
