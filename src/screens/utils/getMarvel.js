@@ -6,8 +6,7 @@ import {
   DEFAULT_PAGE_LIMIT, SERVICE_CHARACTERS, SERVICE_COMICS, IMG_NOT_FOUND,
 } from './constants';
 
-const URL_API = process.env.URL_API || 'https://gateway.marvel.com:443/v1/public';
-const API_KEY = process.env.API_KEY || 'bff521f6f3f5a5068ad5683fb31a74c0';
+const { API_KEY, URL_API } = process.env;
 
 /**
  * @typedef ReturnCharacters
